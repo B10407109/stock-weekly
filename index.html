@@ -35,8 +35,6 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
-  /* grid bg */
   body::before {
     content: '';
     position: fixed; inset: 0; z-index: 0;
@@ -46,23 +44,20 @@
     background-size: 40px 40px;
     pointer-events: none;
   }
-
   .wrap { max-width: 960px; margin: 0 auto; padding: 28px 16px; position: relative; z-index: 1; }
 
   /* Header */
   header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
   .brand-sub { font-size: 10px; letter-spacing: 5px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; font-family: 'Syne', sans-serif; }
   .brand-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px; font-weight: 800;
+    font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800;
     background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    line-height: 1;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;
   }
   .header-meta { text-align: right; font-size: 11px; color: var(--dim); line-height: 1.8; }
   .header-meta span { color: var(--muted); }
 
-  /* Action bar */
+  /* Actions */
   .actions { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
   .btn {
     padding: 9px 22px; border-radius: 6px; border: none; cursor: pointer;
@@ -89,37 +84,30 @@
     border: 1px solid var(--border2); border-radius: 14px;
     padding: 20px 24px; margin-bottom: 16px;
     display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 16px;
-    animation: fadeUp .5s ease both;
+    flex-wrap: wrap; gap: 16px; animation: fadeUp .5s ease both;
   }
   .taiex-label { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
   .taiex-price { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 800; color: #f8fafc; line-height: 1; }
   .taiex-change { font-size: 15px; font-weight: 700; margin-left: 12px; }
   .taiex-right { display: flex; align-items: center; gap: 16px; }
-  .ai-tag {
-    padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
-    white-space: nowrap;
-  }
+  .ai-tag { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap; }
   .ai-summary { font-size: 12px; color: var(--muted); max-width: 280px; line-height: 1.6; margin-top: 4px; text-align: right; }
 
   /* Stock grid */
   .stock-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
     gap: 12px; margin-bottom: 16px;
   }
   .stock-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 12px; padding: 16px; position: relative;
-    transition: border-color .2s, transform .2s;
-    animation: fadeUp .5s ease both;
+    transition: border-color .2s, transform .2s; animation: fadeUp .5s ease both;
   }
   .stock-card:hover { border-color: var(--border2); transform: translateY(-2px); }
   .remove-btn {
     position: absolute; top: 10px; right: 10px;
     background: none; border: none; color: var(--dim);
-    cursor: pointer; font-size: 13px; line-height: 1;
-    transition: color .2s;
+    cursor: pointer; font-size: 13px; line-height: 1; transition: color .2s;
   }
   .remove-btn:hover { color: var(--down); }
   .stock-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
@@ -137,6 +125,34 @@
   .signal-reason { font-size: 11px; color: var(--muted); line-height: 1.5; }
   .no-data { color: var(--dim); font-size: 12px; }
 
+  /* ── 近4週趨勢 ── */
+  .week-trend {
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .week-trend-label {
+    font-size: 10px; letter-spacing: 2px; color: var(--dim);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .week-bars {
+    display: flex; gap: 5px; align-items: flex-end;
+    min-height: 52px; /* pct label + bar + week label */
+  }
+  .week-bar-col {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 2px;
+  }
+  .week-bar-pct {
+    font-size: 9px; font-weight: 700; white-space: nowrap; line-height: 1;
+    min-height: 11px;
+  }
+  .week-bar-body {
+    width: 100%; border-radius: 3px; min-height: 3px;
+  }
+  .week-bar-spacer { flex: 1; } /* pushes bar to correct side of baseline */
+  .week-bar-lbl { font-size: 9px; color: var(--dim); white-space: nowrap; margin-top: 2px; }
+  .week-bars-placeholder { font-size: 11px; color: var(--dim); line-height: 52px; }
+
   /* API Key bar */
   .apikey-bar {
     background: var(--surface); border: 1px solid var(--border2);
@@ -146,6 +162,11 @@
   }
   .apikey-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
   .apikey-note { font-size: 11px; color: var(--dim); margin-left: 4px; }
+  .apikey-saved {
+    font-size: 10px; color: var(--accent); margin-left: 4px;
+    opacity: 0; transition: opacity .4s;
+  }
+  .apikey-saved.show { opacity: 1; }
 
   /* Add stock bar */
   .add-bar {
@@ -157,43 +178,38 @@
   .add-input {
     background: var(--bg); border: 1px solid var(--border2); border-radius: 6px;
     padding: 7px 10px; color: var(--text); font-size: 13px;
-    font-family: 'Noto Sans TC', sans-serif; outline: none;
-    transition: border-color .2s;
+    font-family: 'Noto Sans TC', sans-serif; outline: none; transition: border-color .2s;
   }
   .add-input:focus { border-color: var(--accent); }
   .add-input::placeholder { color: var(--dim); }
   #inp-id { width: 130px; }
   #inp-name { width: 110px; }
 
-  /* Sparkline */
   .sparkline { display: block; }
-
-  /* Loader */
   .loader {
     display: inline-block; width: 12px; height: 12px;
     border: 2px solid rgba(255,255,255,.2); border-top-color: #fff;
     border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle; margin-right: 6px;
   }
-
-  /* Up/Down */
+  .mini-loader {
+    display: inline-block; width: 8px; height: 8px;
+    border: 1.5px solid rgba(255,255,255,.15); border-top-color: var(--muted);
+    border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle; margin-right: 4px;
+  }
   .up { color: var(--up); }
   .down { color: var(--down); }
-
-  /* Signal colors */
   .sig-buy { background: var(--buy-bg); border: 1px solid var(--buy-border); color: #4ade80; }
   .sig-sell { background: var(--sell-bg); border: 1px solid var(--sell-border); color: #f87171; }
   .sig-watch { background: var(--watch-bg); border: 1px solid var(--watch-border); color: #fbbf24; }
 
-  /* Footer */
   footer { font-size: 11px; color: var(--dim); text-align: center; margin-top: 20px; line-height: 1.8; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* stagger cards */
   .stock-card:nth-child(1) { animation-delay: .05s }
   .stock-card:nth-child(2) { animation-delay: .1s }
   .stock-card:nth-child(3) { animation-delay: .15s }
@@ -204,7 +220,6 @@
 </head>
 <body>
 <div class="wrap">
-  <!-- Header -->
   <header>
     <div>
       <div class="brand-sub">Taiwan Stock Market</div>
@@ -216,23 +231,20 @@
     </div>
   </header>
 
-  <!-- Actions -->
   <div class="actions">
     <button class="btn btn-fetch" id="btn-fetch" onclick="fetchAll()">📡 抓取本週數據</button>
     <button class="btn btn-ai" id="btn-ai" onclick="runAnalysis()" disabled>🤖 AI 週報分析</button>
   </div>
 
-  <!-- API Key -->
   <div class="apikey-bar">
     <span class="apikey-label">🔑 Gemini API Key</span>
     <input class="add-input" id="inp-apikey" type="password" placeholder="貼上你的 Gemini API Key" style="width:260px;flex:1;min-width:160px">
+    <span class="apikey-saved" id="apikey-saved">✓ 已儲存</span>
     <span class="apikey-note">免費申請：<a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--accent)">aistudio.google.com</a></span>
   </div>
 
-  <!-- Alert -->
   <div class="alert" id="alert"></div>
 
-  <!-- TAIEX -->
   <div class="taiex-card" id="taiex-card">
     <div>
       <div class="taiex-label">台股加權指數 TAIEX</div>
@@ -252,10 +264,8 @@
     </div>
   </div>
 
-  <!-- Stock Grid -->
   <div class="stock-grid" id="stock-grid"></div>
 
-  <!-- Add bar -->
   <div class="add-bar">
     <span class="add-label">新增追蹤</span>
     <input class="add-input" id="inp-id" placeholder="股票代號 (e.g. 2303)">
@@ -269,31 +279,65 @@
 </div>
 
 <script>
+// ── LocalStorage keys ────────────────────────
+const LS_STOCKS = 'twstock_watchlist';
+const LS_APIKEY = 'twstock_gemini_key';
+
 const DEFAULT_STOCKS = [
   { id: '2330', name: '台積電' },
-  { id: '2317', name: '鴻海' },
   { id: '2454', name: '聯發科' },
-  { id: '2382', name: '廣達' },
+  { id: '3596', name: '智易' },
 ];
 
-let stocks = [...DEFAULT_STOCKS];
-let stockData = {};
-let taiexData = null;
-let analysis = null;
+// ── Persistence helpers ──────────────────────
+function loadStocks() {
+  try {
+    const raw = localStorage.getItem(LS_STOCKS);
+    if (raw) {
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr) && arr.length) return arr;
+    }
+  } catch (_) {}
+  return [...DEFAULT_STOCKS];
+}
+function saveStocks() {
+  try { localStorage.setItem(LS_STOCKS, JSON.stringify(stocks)); } catch (_) {}
+}
+function loadApiKey() {
+  try { return localStorage.getItem(LS_APIKEY) || ''; } catch (_) { return ''; }
+}
+function saveApiKey(k) {
+  try { localStorage.setItem(LS_APIKEY, k); } catch (_) {}
+}
+
+// ── State ────────────────────────────────────
+let stocks      = loadStocks();
+let stockData   = {};       // id → current-week data
+let weekHistory = {};       // id → [w-3, w-2, w-1, w0]  (oldest first, may contain null)
+let taiexData   = null;
+let analysis    = null;
 
 // ── Date utils ──────────────────────────────
-function getWeekRocDates() {
-  const today = new Date();
-  const day = today.getDay();
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1));
-  const dates = [];
+function parseNum(s) { return parseFloat(String(s).replace(/,/g, '')) || 0; }
+
+/**
+ * Returns the 5 ROC-format trading day strings for the week
+ * that contains `refDate` (defaults to today).
+ * Only includes days ≤ today to avoid future dates.
+ */
+function getWeekRocDates(refDate) {
+  const base   = refDate ? new Date(refDate) : new Date();
+  const day    = base.getDay();
+  const monday = new Date(base);
+  monday.setDate(base.getDate() - (day === 0 ? 6 : day - 1));
+  const today  = new Date();
+  const dates  = [];
   for (let i = 0; i < 5; i++) {
     const d = new Date(monday);
     d.setDate(monday.getDate() + i);
     if (d <= today) {
-      const y = d.getFullYear() - 1911;
-      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const y  = d.getFullYear() - 1911;
+      const m  = String(d.getMonth() + 1).padStart(2, '0');
       const dd = String(d.getDate()).padStart(2, '0');
       dates.push(`${y}/${m}/${dd}`);
     }
@@ -301,38 +345,45 @@ function getWeekRocDates() {
   return dates;
 }
 
-function getYYYYMM01() {
-  const d = new Date();
-  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}01`;
+/** Monday of the week N weeks ago (0 = current week). */
+function getMondayNWeeksAgo(n) {
+  const today  = new Date();
+  const day    = today.getDay();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1) - n * 7);
+  return monday;
 }
 
-function parseNum(s) {
-  return parseFloat(String(s).replace(/,/g, '')) || 0;
+/** "YYYYMM01" for the month containing `date`. */
+function yyyymm01(date) {
+  const d = date instanceof Date ? date : new Date(date);
+  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}01`;
 }
 
-// ── Fetch stock ─────────────────────────────
-async function fetchStockWeek(stockId) {
-  const url = `https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=${getYYYYMM01()}&stockNo=${stockId}`;
-  const res = await fetch(url);
+// ── Fetch: single stock week ─────────────────
+async function fetchStockWeek(stockId, refDate) {
+  const url = `https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=${yyyymm01(refDate || new Date())}&stockNo=${stockId}`;
+  const res  = await fetch(url);
   const json = await res.json();
   if (!json.data || !json.data.length) return null;
 
-  const rocDates = getWeekRocDates();
-  const rows = json.data.filter(r => rocDates.includes(r[0]));
+  const rocDates = getWeekRocDates(refDate);
+  const rows     = json.data.filter(r => rocDates.includes(r[0]));
   if (!rows.length) return null;
 
   const closes = rows.map(r => parseNum(r[6]));
   const opens  = rows.map(r => parseNum(r[3]));
   const vols   = rows.map(r => parseNum(r[1]));
 
-  const weekOpen = opens[0], weekClose = closes[closes.length - 1];
+  const weekOpen   = opens[0];
+  const weekClose  = closes[closes.length - 1];
   const weekChange = ((weekClose - weekOpen) / weekOpen) * 100;
-  const avgVol = vols.reduce((a,b) => a+b, 0) / vols.length;
+  const avgVol     = vols.reduce((a, b) => a + b, 0) / vols.length;
 
-  const allRows = json.data;
-  const firstIdx = Math.min(...allRows.map((r,i) => rocDates.includes(r[0]) ? i : Infinity));
+  const allRows  = json.data;
+  const firstIdx = Math.min(...allRows.map((r, i) => rocDates.includes(r[0]) ? i : Infinity));
   const prevRows = firstIdx >= 5 ? allRows.slice(firstIdx - 5, firstIdx) : [];
-  const prevAvg = prevRows.length ? prevRows.reduce((a,r) => a + parseNum(r[1]), 0) / prevRows.length : avgVol;
+  const prevAvg  = prevRows.length ? prevRows.reduce((a, r) => a + parseNum(r[1]), 0) / prevRows.length : avgVol;
   const volRatio = prevAvg > 0 ? avgVol / prevAvg : 1;
 
   return {
@@ -341,20 +392,36 @@ async function fetchStockWeek(stockId) {
   };
 }
 
-// ── Fetch TAIEX ─────────────────────────────
+/**
+ * Fetch 4 consecutive weeks ending with the current week.
+ * Returns [w-3, w-2, w-1, w0] — oldest first.
+ * Handles cross-month: fetches the correct month for each week automatically.
+ */
+async function fetchStockHistory4Weeks(stockId) {
+  const results = [];
+  for (let n = 3; n >= 0; n--) {
+    const monday = getMondayNWeeksAgo(n);
+    try { results.push(await fetchStockWeek(stockId, monday)); }
+    catch (_) { results.push(null); }
+  }
+  return results;
+}
+
+// ── Fetch: TAIEX ────────────────────────────
 async function fetchTaiex() {
-  const url = `https://www.twse.com.tw/indicesReport/MI_5MINS_HIST?response=json&date=${getYYYYMM01()}`;
-  const res = await fetch(url);
+  const url  = `https://www.twse.com.tw/indicesReport/MI_5MINS_HIST?response=json&date=${yyyymm01(new Date())}`;
+  const res  = await fetch(url);
   const json = await res.json();
   if (!json.data || !json.data.length) return null;
 
-  const rocDates = getWeekRocDates();
-  const rows = json.data.filter(r => rocDates.includes(r[0]));
+  const rocDates  = getWeekRocDates();
+  const rows      = json.data.filter(r => rocDates.includes(r[0]));
   if (!rows.length) return null;
 
-  const closes = rows.map(r => parseNum(r[4]));
-  const opens  = rows.map(r => parseNum(r[1]));
-  const weekOpen = opens[0], weekClose = closes[closes.length - 1];
+  const closes    = rows.map(r => parseNum(r[4]));
+  const opens     = rows.map(r => parseNum(r[1]));
+  const weekOpen  = opens[0];
+  const weekClose = closes[closes.length - 1];
   const weekChange = ((weekClose - weekOpen) / weekOpen) * 100;
 
   return {
@@ -367,11 +434,11 @@ async function fetchTaiex() {
 function drawSparkline(svgEl, data, color, w, h) {
   svgEl.innerHTML = '';
   if (!data || data.length < 2) return;
-  const vals = data.map(d => d.close);
-  const min = Math.min(...vals), max = Math.max(...vals);
+  const vals  = data.map(d => d.close);
+  const min   = Math.min(...vals), max = Math.max(...vals);
   const range = max - min || 1;
-  const pad = 3;
-  const pts = vals.map((v, i) => {
+  const pad   = 3;
+  const pts   = vals.map((v, i) => {
     const x = pad + (i / (vals.length - 1)) * (w - pad * 2);
     const y = pad + ((max - v) / range) * (h - pad * 2);
     return `${x},${y}`;
@@ -394,34 +461,113 @@ function sigClass(sig) {
   if (sig === '賣出') return 'sig-sell';
   return 'sig-watch';
 }
-
 function trendIcon(trend) {
   return trend === '多頭' ? '↑' : trend === '空頭' ? '↓' : '→';
 }
 
+// ── Week-bar renderer ────────────────────────
+/**
+ * Renders a compact 4-week bar chart inside `container`.
+ * `weeks` is an array of length 4 (oldest first); each entry is
+ * {weekChange, ...} or null.
+ *
+ * Layout per column (top→bottom):
+ *   [pct label]
+ *   [up bar OR spacer]
+ *   ──── baseline ────
+ *   [down bar OR spacer]
+ *   [week label]
+ */
+function renderWeekBars(container, weeks) {
+  const LABELS  = ['W-3', 'W-2', 'W-1', '本週'];
+  const MAX_H   = 22; // max bar height in px
+  const valid   = weeks.filter(Boolean);
+  const maxAbs  = valid.length ? Math.max(...valid.map(w => Math.abs(w.weekChange)), 0.01) : 1;
+
+  // Build a shared flex column: top half for up-bars, bottom half for down-bars
+  // We use a simple approach: each column has a fixed-height container split by a baseline.
+  container.innerHTML = '';
+  container.style.cssText = 'display:flex;gap:5px;align-items:stretch;';
+
+  weeks.forEach((w, i) => {
+    const col = document.createElement('div');
+    col.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;gap:0;';
+
+    if (!w) {
+      col.innerHTML = `
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:9px;color:var(--dim)">—</span>
+        </div>
+        <div class="week-bar-lbl">${LABELS[i]}</div>`;
+    } else {
+      const pct   = w.weekChange;
+      const isUp  = pct >= 0;
+      const barH  = Math.max(3, Math.round((Math.abs(pct) / maxAbs) * MAX_H));
+      const color = isUp ? 'var(--up)' : 'var(--down)';
+      const alpha = i === 3 ? '1' : '0.5';
+      const sign  = isUp ? '+' : '';
+
+      // Top area (up bar lives here)
+      const topDiv = document.createElement('div');
+      topDiv.style.cssText = `height:${MAX_H}px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;`;
+      if (isUp) {
+        const bar = document.createElement('div');
+        bar.style.cssText = `width:100%;height:${barH}px;background:${color};opacity:${alpha};border-radius:3px 3px 0 0;`;
+        topDiv.appendChild(bar);
+      }
+
+      // Pct label
+      const pctEl = document.createElement('div');
+      pctEl.className = 'week-bar-pct ' + (isUp ? 'up' : 'down');
+      pctEl.style.cssText = 'font-size:9px;font-weight:700;white-space:nowrap;line-height:1;margin:2px 0;';
+      pctEl.textContent = `${sign}${pct.toFixed(1)}%`;
+
+      // Bottom area (down bar lives here)
+      const botDiv = document.createElement('div');
+      botDiv.style.cssText = `height:${MAX_H}px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;`;
+      if (!isUp) {
+        const bar = document.createElement('div');
+        bar.style.cssText = `width:100%;height:${barH}px;background:${color};opacity:${alpha};border-radius:0 0 3px 3px;`;
+        botDiv.appendChild(bar);
+      }
+
+      // Week label
+      const lbl = document.createElement('div');
+      lbl.className = 'week-bar-lbl';
+      lbl.textContent = LABELS[i];
+
+      col.appendChild(topDiv);
+      col.appendChild(pctEl);
+      col.appendChild(botDiv);
+      col.appendChild(lbl);
+    }
+
+    container.appendChild(col);
+  });
+}
+
 // ── Render ───────────────────────────────────
 function renderTaiex() {
-  const d = taiexData;
-  const priceEl = document.getElementById('taiex-price');
+  const d        = taiexData;
+  const priceEl  = document.getElementById('taiex-price');
   const changeEl = document.getElementById('taiex-change');
-  const sparkEl = document.getElementById('taiex-spark');
+  const sparkEl  = document.getElementById('taiex-spark');
 
   if (!d) { priceEl.textContent = '—'; return; }
 
   const isUp = d.weekChange >= 0;
-  priceEl.textContent = d.weekClose.toFixed(0);
+  priceEl.textContent  = d.weekClose.toFixed(0);
   changeEl.textContent = ` ${isUp ? '▲' : '▼'} ${Math.abs(d.weekChange).toFixed(2)}%`;
-  changeEl.className = 'taiex-change ' + (isUp ? 'up' : 'down');
+  changeEl.className   = 'taiex-change ' + (isUp ? 'up' : 'down');
   drawSparkline(sparkEl, d.dailyData, isUp ? '#4ade80' : '#f87171', 100, 40);
 
-  // AI
-  const ai = analysis?.taiex;
+  const ai    = analysis?.taiex;
   const aiDiv = document.getElementById('taiex-ai');
   if (ai) {
     aiDiv.style.display = 'block';
     const tag = document.getElementById('taiex-tag');
     tag.textContent = `${trendIcon(ai.trend)} ${ai.trend}｜${ai.signal}`;
-    tag.className = 'ai-tag ' + sigClass(ai.signal);
+    tag.className   = 'ai-tag ' + sigClass(ai.signal);
     document.getElementById('taiex-summary').textContent = ai.summary;
   } else {
     aiDiv.style.display = 'none';
@@ -431,15 +577,18 @@ function renderTaiex() {
 function renderStocks() {
   const grid = document.getElementById('stock-grid');
   grid.innerHTML = '';
+
   stocks.forEach((stock, idx) => {
-    const d = stockData[stock.id];
-    const ai = analysis?.stocks?.find(s => s.id === stock.id);
+    const d    = stockData[stock.id];
+    const ai   = analysis?.stocks?.find(s => s.id === stock.id);
     const isUp = d && d.weekChange >= 0;
+    const hist = weekHistory[stock.id];
 
     const card = document.createElement('div');
     card.className = 'stock-card';
     card.style.animationDelay = `${idx * 0.05}s`;
 
+    // Current-week section
     let dataHtml = `<div class="no-data">尚未抓取數據</div>`;
     if (d) {
       const volHiClass = d.volRatio > 1.2 ? 'vol-hi' : '';
@@ -460,6 +609,15 @@ function renderStocks() {
       `;
     }
 
+    // 近4週趨勢 placeholder — will be filled after history loads
+    const trendId = `trend-bars-${stock.id}`;
+    let trendInner = '';
+    if (!d) {
+      trendInner = `<span style="font-size:11px;color:var(--dim)">抓取後顯示</span>`;
+    } else if (!hist) {
+      trendInner = `<span style="font-size:11px;color:var(--dim)"><span class="mini-loader"></span>歷史載入中…</span>`;
+    }
+
     card.innerHTML = `
       <button class="remove-btn" onclick="removeStock('${stock.id}')">✕</button>
       <div class="stock-header">
@@ -470,17 +628,27 @@ function renderStocks() {
         <svg class="sparkline" id="spark-${stock.id}" width="80" height="32"></svg>
       </div>
       ${dataHtml}
+      <div class="week-trend">
+        <div class="week-trend-label">近 4 週趨勢</div>
+        <div class="week-bars" id="${trendId}">${trendInner}</div>
+      </div>
     `;
     grid.appendChild(card);
 
     if (d) {
-      const sparkEl = document.getElementById(`spark-${stock.id}`);
-      drawSparkline(sparkEl, d.dailyData, isUp ? '#4ade80' : '#f87171', 80, 32);
+      drawSparkline(
+        document.getElementById(`spark-${stock.id}`),
+        d.dailyData, isUp ? '#4ade80' : '#f87171', 80, 32
+      );
+    }
+
+    if (hist) {
+      renderWeekBars(document.getElementById(trendId), hist);
     }
   });
 }
 
-// ── Fetch all ────────────────────────────────
+// ── Fetch all (current week) ─────────────────
 async function fetchAll() {
   const btn = document.getElementById('btn-fetch');
   btn.disabled = true;
@@ -500,9 +668,11 @@ async function fetchAll() {
 
     const hasData = Object.values(stockData).some(d => d !== null);
     document.getElementById('btn-ai').disabled = !hasData;
+    document.getElementById('last-updated').textContent =
+      `更新：${new Date().toLocaleTimeString('zh-TW')}`;
 
-    const now = new Date();
-    document.getElementById('last-updated').textContent = `更新：${now.toLocaleTimeString('zh-TW')}`;
+    // Fetch 4-week history in background
+    fetchAllHistory();
   } catch (e) {
     showAlert('數據抓取失敗，可能為 CORS 限制或 TWSE API 暫時不可用。請稍後再試。');
   }
@@ -511,18 +681,42 @@ async function fetchAll() {
   btn.innerHTML = '📡 抓取本週數據';
 }
 
-// ── AI Analysis (Gemini) ────────────────────
+/**
+ * Fetch 4-week history for each stock sequentially (rate-limit friendly).
+ * Updates only the trend-bar area of each card without full re-render.
+ */
+async function fetchAllHistory() {
+  for (const s of stocks) {
+    if (!stockData[s.id]) continue;
+    try {
+      const hist = await fetchStockHistory4Weeks(s.id);
+      weekHistory[s.id] = hist;
+      const el = document.getElementById(`trend-bars-${s.id}`);
+      if (el) renderWeekBars(el, hist);
+    } catch (_) { /* silently skip */ }
+  }
+}
+
+// ── AI Analysis ──────────────────────────────
 async function runAnalysis() {
   const apiKey = document.getElementById('inp-apikey').value.trim();
-  if (!apiKey) {
-    showAlert('請先輸入 Gemini API Key！');
-    return;
-  }
+  if (!apiKey) { showAlert('請先輸入 Gemini API Key！'); return; }
 
   const btn = document.getElementById('btn-ai');
   btn.disabled = true;
   btn.innerHTML = '<span class="loader"></span>AI 分析中…';
   showAlert('');
+
+  // Build 4-week trend text for prompt
+  const histContext = stocks
+    .filter(s => weekHistory[s.id])
+    .map(s => {
+      const labels = ['W-3', 'W-2', 'W-1', '本週'];
+      const str = weekHistory[s.id]
+        .map((w, i) => w ? `${labels[i]}:${w.weekChange.toFixed(1)}%` : `${labels[i]}:無`)
+        .join(', ');
+      return `${s.name}(${s.id}) 近4週趨勢: ${str}`;
+    }).join('\n');
 
   const stockSummaries = stocks
     .filter(s => stockData[s.id])
@@ -537,35 +731,33 @@ async function runAnalysis() {
 
   const stockIds = stocks.filter(s => stockData[s.id]).map(s => `"${s.id}"`).join(',');
 
-  const prompt = `你是台股分析師，根據本週數據給出週報建議。請用繁體中文回覆，輸出純JSON，不要有任何markdown語法或說明文字，直接從{開始。
+  const prompt = `你是台股分析師，根據本週數據與近4週趨勢給出週報建議。請用繁體中文回覆，輸出純JSON，不要有任何markdown語法或說明文字，直接從{開始。
 
 本週數據：
 ${taiexSummary}
 
-個股數據：
+個股本週數據：
 ${stockSummaries}
 
+個股近4週趨勢（由舊到新）：
+${histContext || '（歷史趨勢尚未載入）'}
+
 請輸出以下格式（stocks陣列需包含所有個股：${stockIds}）：
-{"taiex":{"trend":"多頭或空頭或盤整","signal":"買進或賣出或觀望","summary":"2-3句分析"},"stocks":[{"id":"股票代號","signal":"買進或賣出或觀望","reason":"一句話原因","score":1到10的數字}]}`;
+{"taiex":{"trend":"多頭或空頭或盤整","signal":"買進或賣出或觀望","summary":"2-3句分析"},"stocks":[{"id":"股票代號","signal":"買進或賣出或觀望","reason":"一句話原因，可納入近期趨勢判斷","score":1到10的數字}]}`;
 
   try {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-    const res = await fetch(url, {
+    const res  = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.3,
-          maxOutputTokens: 8000,
-          responseMimeType: 'application/json'
-        }
+        generationConfig: { temperature: 0.3, maxOutputTokens: 8000, responseMimeType: 'application/json' }
       })
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    console.log('Gemini raw:', text);
     if (!text) throw new Error('Gemini 回應為空，請確認 API Key 與帳號狀態');
     const match = text.match(/\{[\s\S]*\}/);
     if (!match) throw new Error('回應內容：' + text.slice(0, 200));
@@ -582,11 +774,12 @@ ${stockSummaries}
 
 // ── Stock management ─────────────────────────
 function addStock() {
-  const id = document.getElementById('inp-id').value.trim();
+  const id   = document.getElementById('inp-id').value.trim();
   const name = document.getElementById('inp-name').value.trim() || id;
   if (!id || stocks.find(s => s.id === id)) return;
   stocks.push({ id, name });
-  document.getElementById('inp-id').value = '';
+  saveStocks();
+  document.getElementById('inp-id').value   = '';
   document.getElementById('inp-name').value = '';
   renderStocks();
 }
@@ -594,6 +787,8 @@ function addStock() {
 function removeStock(id) {
   stocks = stocks.filter(s => s.id !== id);
   delete stockData[id];
+  delete weekHistory[id];
+  saveStocks();
   renderStocks();
 }
 
@@ -603,15 +798,35 @@ function showAlert(msg) {
   el.classList.toggle('show', !!msg);
 }
 
-// Enter key for add
+// ── API Key persistence ──────────────────────
+const apiKeyInput = document.getElementById('inp-apikey');
+const apiKeySaved = document.getElementById('apikey-saved');
+const saved = loadApiKey();
+if (saved) apiKeyInput.value = saved;
+
+let saveTimer = null;
+apiKeyInput.addEventListener('input', () => {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const k = apiKeyInput.value.trim();
+    if (k) {
+      saveApiKey(k);
+      apiKeySaved.classList.add('show');
+      setTimeout(() => apiKeySaved.classList.remove('show'), 2000);
+    }
+  }, 600);
+});
+
+// ── Enter key shortcut ────────────────────────
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && (document.activeElement.id === 'inp-id' || document.activeElement.id === 'inp-name')) {
+  if (e.key === 'Enter' && ['inp-id', 'inp-name'].includes(document.activeElement.id)) {
     addStock();
   }
 });
 
-// Init
-document.getElementById('today-date').textContent = new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
+// ── Init ─────────────────────────────────────
+document.getElementById('today-date').textContent =
+  new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
 renderStocks();
 </script>
 </body>
