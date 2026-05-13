@@ -17,13 +17,13 @@
     --dim: #4a5568;
     --accent: #64ffda;
     --accent2: #7b61ff;
-    --up: #4ade80;
-    --down: #f87171;
+    --up: #f87171;
+    --down: #4ade80;
     --warn: #fbbf24;
-    --buy-bg: rgba(74,222,128,.12);
-    --buy-border: rgba(74,222,128,.4);
-    --sell-bg: rgba(248,113,113,.12);
-    --sell-border: rgba(248,113,113,.4);
+    --buy-bg: rgba(248,113,113,.12);
+    --buy-border: rgba(248,113,113,.4);
+    --sell-bg: rgba(74,222,128,.12);
+    --sell-border: rgba(74,222,128,.4);
     --watch-bg: rgba(251,191,36,.12);
     --watch-border: rgba(251,191,36,.4);
   }
@@ -198,8 +198,8 @@
   }
   .up { color: var(--up); }
   .down { color: var(--down); }
-  .sig-buy { background: var(--buy-bg); border: 1px solid var(--buy-border); color: #4ade80; }
-  .sig-sell { background: var(--sell-bg); border: 1px solid var(--sell-border); color: #f87171; }
+  .sig-buy { background: var(--buy-bg); border: 1px solid var(--buy-border); color: #f87171; }
+  .sig-sell { background: var(--sell-bg); border: 1px solid var(--sell-border); color: #4ade80; }
   .sig-watch { background: var(--watch-bg); border: 1px solid var(--watch-border); color: #fbbf24; }
 
   footer { font-size: 11px; color: var(--dim); text-align: center; margin-top: 20px; line-height: 1.8; }
@@ -559,7 +559,7 @@ function renderTaiex() {
   priceEl.textContent  = d.weekClose.toFixed(0);
   changeEl.textContent = ` ${isUp ? '▲' : '▼'} ${Math.abs(d.weekChange).toFixed(2)}%`;
   changeEl.className   = 'taiex-change ' + (isUp ? 'up' : 'down');
-  drawSparkline(sparkEl, d.dailyData, isUp ? '#4ade80' : '#f87171', 100, 40);
+  drawSparkline(sparkEl, d.dailyData, isUp ? '#f87171' : '#4ade80', 100, 40);
 
   const ai    = analysis?.taiex;
   const aiDiv = document.getElementById('taiex-ai');
@@ -638,7 +638,7 @@ function renderStocks() {
     if (d) {
       drawSparkline(
         document.getElementById(`spark-${stock.id}`),
-        d.dailyData, isUp ? '#4ade80' : '#f87171', 80, 32
+        d.dailyData, isUp ? '#f87171' : '#4ade80', 80, 32
       );
     }
 
