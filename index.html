@@ -561,8 +561,9 @@ ${stockSummaries}
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    const clean = text.replace(/```json|```/g, '').trim();
-    analysis = JSON.parse(clean);
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('無法從回應中找到 JSON 內容');
+    analysis = JSON.parse(match[0]);
     renderTaiex();
     renderStocks();
   } catch (e) {
