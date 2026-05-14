@@ -110,6 +110,18 @@
     cursor: pointer; font-size: 13px; line-height: 1; transition: color .2s;
   }
   .remove-btn:hover { color: var(--down); }
+  .edit-btn {
+    position: absolute; top: 10px; right: 28px;
+    background: none; border: none; color: var(--dim);
+    cursor: pointer; font-size: 12px; line-height: 1; transition: color .2s;
+  }
+  .edit-btn:hover { color: var(--accent); }
+  .name-input {
+    background: var(--bg); border: 1px solid var(--accent);
+    border-radius: 5px; color: #f1f5f9; font-size: 14px; font-weight: 700;
+    font-family: 'Noto Sans TC', sans-serif; padding: 2px 7px;
+    width: 140px; outline: none;
+  }
   .stock-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
   .stock-name { font-size: 15px; font-weight: 700; color: #f1f5f9; }
   .stock-id { font-size: 11px; color: var(--dim); margin-top: 2px; }
@@ -204,6 +216,77 @@
 
   footer { font-size: 11px; color: var(--dim); text-align: center; margin-top: 20px; line-height: 1.8; }
 
+
+  /* ── Tabs ── */
+  .tab-bar {
+    display: flex; gap: 4px; margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+  .tab-btn {
+    padding: 8px 20px; border-radius: 8px 8px 0 0; border: none;
+    background: none; color: var(--muted); font-size: 13px; font-weight: 700;
+    font-family: 'Noto Sans TC', sans-serif; cursor: pointer;
+    border: 1px solid transparent; border-bottom: none;
+    transition: color .2s, background .2s;
+    position: relative; bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    background: var(--surface2); color: var(--accent);
+    border-color: var(--border); border-bottom-color: var(--surface2);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Guide page ── */
+  .guide-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px; margin-bottom: 24px;
+  }
+  .guide-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+    animation: fadeUp .4s ease both;
+  }
+  .guide-card-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+  }
+  .guide-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .guide-name { font-size: 15px; font-weight: 700; color: #f1f5f9; }
+  .guide-eng  { font-size: 11px; color: var(--dim); margin-top: 1px; }
+  .guide-desc { font-size: 12px; color: var(--muted); line-height: 1.75; }
+  .guide-levels {
+    margin-top: 10px; display: flex; flex-direction: column; gap: 4px;
+  }
+  .guide-level {
+    display: flex; align-items: baseline; gap: 8px; font-size: 11px;
+  }
+  .guide-level-tag {
+    font-size: 10px; font-weight: 700; border-radius: 4px; padding: 1px 7px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .guide-level-desc { color: var(--muted); line-height: 1.5; }
+  .guide-section-title {
+    font-size: 11px; letter-spacing: 3px; color: var(--dim);
+    text-transform: uppercase; margin: 20px 0 10px; font-family: 'Syne', sans-serif;
+  }
+  .guide-tip {
+    background: var(--surface2); border: 1px solid var(--border2);
+    border-radius: 10px; padding: 14px 18px; font-size: 12px;
+    color: var(--muted); line-height: 1.8; margin-bottom: 10px;
+  }
+  .guide-tip b { color: var(--text); }
+  .guide-signal-row {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;
+  }
+  .guide-signal-pill {
+    padding: 4px 12px; border-radius: 14px; font-size: 11px; font-weight: 700;
+  }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -230,6 +313,15 @@
       <span id="today-date"></span>
     </div>
   </header>
+
+  <!-- Tab bar -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('weekly', this)">📊 週報</button>
+    <button class="tab-btn" onclick="switchTab('guide', this)">📖 指標說明</button>
+  </div>
+
+  <!-- Weekly panel -->
+  <div class="tab-panel active" id="panel-weekly">
 
   <div class="actions">
     <button class="btn btn-fetch" id="btn-fetch" onclick="fetchAll()">📡 抓取本週數據</button>
@@ -268,25 +360,306 @@
 
   <div class="add-bar">
     <span class="add-label">新增追蹤</span>
-    <input class="add-input" id="inp-id" placeholder="股票代號 (e.g. 2303)">
+    <input class="add-input" id="inp-id" placeholder="股票代號 (e.g. 2303 / 0050)">
     <input class="add-input" id="inp-name" placeholder="名稱 (選填)">
+    <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap;">
+      <input type="checkbox" id="inp-etf" style="accent-color:var(--accent2);width:14px;height:14px;cursor:pointer;">
+      ETF
+    </label>
     <button class="btn btn-add" onclick="addStock()">＋ 加入</button>
   </div>
 
   <footer>
     數據來源：台灣證券交易所 (TWSE) · AI 分析僅供參考，不構成投資建議
   </footer>
-</div>
+  </div><!-- /panel-weekly -->
+
+  <!-- Guide panel -->
+  <div class="tab-panel" id="panel-guide">
+    <div class="guide-section-title">價格與走勢</div>
+    <div class="guide-grid">
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(248,113,113,.15)">📈</div>
+          <div>
+            <div class="guide-name">週漲跌幅</div>
+            <div class="guide-eng">Weekly Change %</div>
+          </div>
+        </div>
+        <div class="guide-desc">本週開盤到收盤的漲跌百分比。紅色為上漲，綠色為下跌（台股慣例，與歐美相反）。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">▲ 上漲</span>
+            <span class="guide-level-desc">週收盤高於週開盤，顯示買方力道較強</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">▼ 下跌</span>
+            <span class="guide-level-desc">週收盤低於週開盤，顯示賣方力道較強</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(100,255,218,.1)">〰</div>
+          <div>
+            <div class="guide-name">週高 / 週低</div>
+            <div class="guide-eng">Weekly High / Low</div>
+          </div>
+        </div>
+        <div class="guide-desc">本週內的最高成交價與最低成交價，代表本週的價格波動區間與支撐/壓力參考。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">H 週高</span>
+            <span class="guide-level-desc">本週最高價，可視為短期壓力位</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">L 週低</span>
+            <span class="guide-level-desc">本週最低價，可視為短期支撐位</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(100,255,218,.1)">📉</div>
+          <div>
+            <div class="guide-name">近 4 週趨勢</div>
+            <div class="guide-eng">4-Week Trend</div>
+          </div>
+        </div>
+        <div class="guide-desc">顯示 W-3（最舊）到本週（最新）共四週的漲跌走勢。柱越高代表當週漲跌幅越大，可快速判斷趨勢方向與動能。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">連紅</span>
+            <span class="guide-level-desc">多週連續上漲，趨勢偏多</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">連綠</span>
+            <span class="guide-level-desc">多週連續下跌，趨勢偏空</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(251,191,36,.15);color:#fbbf24">交替</span>
+            <span class="guide-level-desc">多空交錯，整理盤整，方向不明</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="guide-section-title">技術指標</div>
+    <div class="guide-grid">
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(123,97,255,.2)">MA</div>
+          <div>
+            <div class="guide-name">MA5 相對位置</div>
+            <div class="guide-eng">5-Day Moving Average</div>
+          </div>
+        </div>
+        <div class="guide-desc">近 5 個交易日的收盤均價。顯示目前收盤價相對 MA5 的偏離百分比，判斷短期趨勢方向。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">▲ 站上</span>
+            <span class="guide-level-desc">收盤高於MA5，短期趨勢偏多，買方佔優</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">▼ 跌破</span>
+            <span class="guide-level-desc">收盤低於MA5，短期趨勢偏空，需留意風險</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(251,191,36,.15)">RSI</div>
+          <div>
+            <div class="guide-name">RSI 14</div>
+            <div class="guide-eng">Relative Strength Index</div>
+          </div>
+        </div>
+        <div class="guide-desc">相對強弱指數，衡量過去 14 個交易日的漲跌動能，數值介於 0～100。用於判斷超買或超賣狀態。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">≥ 70 超買</span>
+            <span class="guide-level-desc">漲幅過大，短期回調風險升高</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(251,191,36,.15);color:#fbbf24">50～70</span>
+            <span class="guide-level-desc">強勢區間，趨勢偏多</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(148,163,184,.15);color:#94a3b8">30～50</span>
+            <span class="guide-level-desc">弱勢區間，趨勢偏空</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">≤ 30 超賣</span>
+            <span class="guide-level-desc">跌幅過大，可能出現技術性反彈</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(14,165,233,.15)">⚡</div>
+          <div>
+            <div class="guide-name">相對強弱</div>
+            <div class="guide-eng">Relative Strength vs TAIEX</div>
+          </div>
+        </div>
+        <div class="guide-desc">個股週漲跌幅 − 大盤（加權指數）週漲跌幅。正值代表強於大盤，負值代表弱於大盤，用於篩選強勢股。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">+ 強勢</span>
+            <span class="guide-level-desc">跑贏大盤，資金相對集中，值得留意</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">− 弱勢</span>
+            <span class="guide-level-desc">跑輸大盤，資金相對流出，謹慎看待</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="guide-section-title">量能指標</div>
+    <div class="guide-grid">
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(251,191,36,.15)">📦</div>
+          <div>
+            <div class="guide-name">量比</div>
+            <div class="guide-eng">Volume Ratio</div>
+          </div>
+        </div>
+        <div class="guide-desc">本週平均日成交量 ÷ 前 5 個交易日平均日成交量。衡量近期成交是否放量或縮量。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#fbbf24">&gt; 1.5x</span>
+            <span class="guide-level-desc">大幅放量，籌碼活絡，可能有主力介入</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(251,191,36,.15);color:#fbbf24">1.2～1.5x</span>
+            <span class="guide-level-desc">溫和放量，值得留意方向</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(148,163,184,.15);color:#94a3b8">0.8～1.2x</span>
+            <span class="guide-level-desc">量能持平，市場觀望</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">&lt; 0.8x</span>
+            <span class="guide-level-desc">縮量，市場觀望或籌碼沉澱</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="guide-section-title">AI 分析輸出</div>
+    <div class="guide-grid">
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(74,222,128,.15)">🤖</div>
+          <div>
+            <div class="guide-name">AI 訊號</div>
+            <div class="guide-eng">Signal</div>
+          </div>
+        </div>
+        <div class="guide-desc">AI 根據所有技術指標綜合判斷後給出的操作建議。</div>
+        <div class="guide-signal-row">
+          <span class="guide-signal-pill sig-buy">買進</span>
+          <span class="guide-signal-pill sig-sell">賣出</span>
+          <span class="guide-signal-pill sig-watch">觀望</span>
+        </div>
+        <div class="guide-desc" style="margin-top:10px">訊號僅為技術面參考，不代表實際投資建議，操作前請自行評估風險。</div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(123,97,255,.2)">🔢</div>
+          <div>
+            <div class="guide-name">AI 評分</div>
+            <div class="guide-eng">Score 1–10</div>
+          </div>
+        </div>
+        <div class="guide-desc">AI 對技術面整體強度的評分，依據 MA5 位置、RSI、相對強弱、量比、近4週趨勢綜合計算。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag sig-buy">9–10</span>
+            <span class="guide-level-desc">強力買進，多項指標同步看多</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.1);color:#fca5a5">7–8</span>
+            <span class="guide-level-desc">買進，技術面偏多</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag sig-watch">5–6</span>
+            <span class="guide-level-desc">中性或偏多觀望</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.1);color:#86efac">3–4</span>
+            <span class="guide-level-desc">偏空，建議減碼觀察</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag sig-sell">1–2</span>
+            <span class="guide-level-desc">賣出，明顯下跌趨勢</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(251,191,36,.15)">⚠</div>
+          <div>
+            <div class="guide-name">風險提示</div>
+            <div class="guide-eng">Risk</div>
+          </div>
+        </div>
+        <div class="guide-desc">AI 針對每檔個股或 ETF 給出的主要風險點，以黃色字體顯示於訊號下方。常見風險包含：</div>
+        <div class="guide-levels" style="margin-top:8px">
+          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">RSI 超買後的回調風險</span></div>
+          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">跌破 MA5 後的加速下跌風險</span></div>
+          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">ETF 除息後的填息壓力</span></div>
+          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">量能萎縮導致的流動性不足</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="guide-tip">
+      <b>免責聲明</b>：本工具所有指標計算與 AI 分析結果，均為技術面輔助參考，不構成任何投資建議。股市有風險，投資前請審慎評估自身風險承受能力，並以個人判斷為準。
+    </div>
+
+  </div><!-- /panel-guide -->
+
+
+</div><!-- wrap -->
 
 <script>
+
+// ── Tab switching ────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
 // ── LocalStorage keys ────────────────────────
 const LS_STOCKS = 'twstock_watchlist';
 const LS_APIKEY = 'twstock_gemini_key';
 
 const DEFAULT_STOCKS = [
-  { id: '2330', name: '台積電' },
-  { id: '2454', name: '聯發科' },
-  { id: '3596', name: '智易' },
+  { id: '2330',  name: '台積電' },
+  { id: '2454',  name: '聯發科' },
+  { id: '3596',  name: '智易' },
+  { id: '0050',  name: '元大台灣50',       isETF: true },
+  { id: '00830', name: '國泰費城半導體',   isETF: true },
+  { id: '00919', name: '群益台灣精選高息', isETF: true },
 ];
 
 // ── Persistence helpers ──────────────────────
@@ -295,7 +668,16 @@ function loadStocks() {
     const raw = localStorage.getItem(LS_STOCKS);
     if (raw) {
       const arr = JSON.parse(raw);
-      if (Array.isArray(arr) && arr.length) return arr;
+      if (Array.isArray(arr) && arr.length) {
+        // migrate: fill in isETF from DEFAULT_STOCKS if missing
+        return arr.map(s => {
+          if (s.isETF === undefined) {
+            const def = DEFAULT_STOCKS.find(d => d.id === s.id);
+            if (def) s.isETF = !!def.isETF;
+          }
+          return s;
+        });
+      }
     }
   } catch (_) {}
   return [...DEFAULT_STOCKS];
@@ -360,35 +742,95 @@ function yyyymm01(date) {
   return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}01`;
 }
 
-// ── Fetch: single stock week ─────────────────
-async function fetchStockWeek(stockId, refDate) {
-  const url = `https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=${yyyymm01(refDate || new Date())}&stockNo=${stockId}`;
+// ── Technical indicators ─────────────────────
+
+/** Simple Moving Average of last `n` closes. */
+function calcMA(closes, n) {
+  if (closes.length < n) return null;
+  const slice = closes.slice(-n);
+  return slice.reduce((a, b) => a + b, 0) / n;
+}
+
+/**
+ * RSI-14 using Wilder's smoothing.
+ * Requires at least 15 close values (14 changes + 1 seed).
+ */
+function calcRSI14(closes) {
+  if (closes.length < 15) return null;
+  const changes = closes.slice(1).map((c, i) => c - closes[i]);
+  let avgGain = changes.slice(0, 14).filter(c => c > 0).reduce((a, b) => a + b, 0) / 14;
+  let avgLoss = changes.slice(0, 14).filter(c => c < 0).reduce((a, b) => a + Math.abs(b), 0) / 14;
+  for (let i = 14; i < changes.length; i++) {
+    const gain = changes[i] > 0 ? changes[i] : 0;
+    const loss = changes[i] < 0 ? Math.abs(changes[i]) : 0;
+    avgGain = (avgGain * 13 + gain) / 14;
+    avgLoss = (avgLoss * 13 + loss) / 14;
+  }
+  if (avgLoss === 0) return 100;
+  return 100 - (100 / (1 + avgGain / avgLoss));
+}
+
+/** Fetch one month of raw TWSE daily rows for a stock. */
+async function fetchMonthRows(stockId, date) {
+  const url  = `https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=${yyyymm01(date)}&stockNo=${stockId}`;
   const res  = await fetch(url);
   const json = await res.json();
-  if (!json.data || !json.data.length) return null;
+  return json.data || [];
+}
 
-  const rocDates = getWeekRocDates(refDate);
-  const rows     = json.data.filter(r => rocDates.includes(r[0]));
-  if (!rows.length) return null;
+// ── Fetch: single stock week ─────────────────
+async function fetchStockWeek(stockId, refDate) {
+  const baseDate = refDate || new Date();
 
-  const closes = rows.map(r => parseNum(r[6]));
-  const opens  = rows.map(r => parseNum(r[3]));
-  const vols   = rows.map(r => parseNum(r[1]));
+  // Current month rows
+  const curRows = await fetchMonthRows(stockId, baseDate);
+  if (!curRows.length) return null;
+
+  // Previous month rows for RSI history (best-effort)
+  const prevMonthDate = new Date(baseDate);
+  prevMonthDate.setDate(1);
+  prevMonthDate.setMonth(prevMonthDate.getMonth() - 1);
+  let prevRows = [];
+  try { prevRows = await fetchMonthRows(stockId, prevMonthDate); } catch (_) {}
+
+  const rocDates  = getWeekRocDates(refDate);
+  const weekRows  = curRows.filter(r => rocDates.includes(r[0]));
+  if (!weekRows.length) return null;
+
+  const closes = weekRows.map(r => parseNum(r[6]));
+  const opens  = weekRows.map(r => parseNum(r[3]));
+  const highs  = weekRows.map(r => parseNum(r[4]));
+  const lows   = weekRows.map(r => parseNum(r[5]));
+  const vols   = weekRows.map(r => parseNum(r[1]));
 
   const weekOpen   = opens[0];
   const weekClose  = closes[closes.length - 1];
   const weekChange = ((weekClose - weekOpen) / weekOpen) * 100;
+  const weekHigh   = Math.max(...highs);
+  const weekLow    = Math.min(...lows);
   const avgVol     = vols.reduce((a, b) => a + b, 0) / vols.length;
 
-  const allRows  = json.data;
-  const firstIdx = Math.min(...allRows.map((r, i) => rocDates.includes(r[0]) ? i : Infinity));
-  const prevRows = firstIdx >= 5 ? allRows.slice(firstIdx - 5, firstIdx) : [];
-  const prevAvg  = prevRows.length ? prevRows.reduce((a, r) => a + parseNum(r[1]), 0) / prevRows.length : avgVol;
+  // Volume ratio vs prev 5 sessions in current month
+  const firstIdx = Math.min(...curRows.map((r, i) => rocDates.includes(r[0]) ? i : Infinity));
+  const prev5    = firstIdx >= 5 ? curRows.slice(firstIdx - 5, firstIdx) : [];
+  const prevAvg  = prev5.length ? prev5.reduce((a, r) => a + parseNum(r[1]), 0) / prev5.length : avgVol;
   const volRatio = prevAvg > 0 ? avgVol / prevAvg : 1;
 
+  // All closes up to week end for MA5 + RSI14
+  const weekEndDate = rocDates[rocDates.length - 1];
+  const allCloses   = [...prevRows, ...curRows]
+    .filter(r => r[0] <= weekEndDate)
+    .map(r => parseNum(r[6]));
+
+  const ma5    = calcMA(allCloses, 5);
+  const rsi    = calcRSI14(allCloses);
+  const ma5Pos = ma5 ? ((weekClose - ma5) / ma5 * 100) : null; // % above/below MA5
+
   return {
-    weekChange, weekClose, weekOpen, volRatio, days: rows.length,
-    dailyData: rows.map(r => ({ date: r[0], close: parseNum(r[6]) }))
+    weekChange, weekClose, weekOpen, weekHigh, weekLow,
+    volRatio, days: weekRows.length,
+    ma5, rsi, ma5Pos,
+    dailyData: weekRows.map(r => ({ date: r[0], close: parseNum(r[6]) }))
   };
 }
 
@@ -592,18 +1034,48 @@ function renderStocks() {
     let dataHtml = `<div class="no-data">尚未抓取數據</div>`;
     if (d) {
       const volHiClass = d.volRatio > 1.2 ? 'vol-hi' : '';
+
+      // RSI colour
+      const rsiVal = d.rsi != null ? d.rsi.toFixed(1) : null;
+      const rsiColor = !rsiVal ? 'var(--muted)'
+        : d.rsi >= 70 ? 'var(--up)'
+        : d.rsi <= 30 ? 'var(--down)'
+        : 'var(--muted)';
+
+      // MA5 position label
+      const ma5Label = d.ma5Pos != null
+        ? `MA5 <b style="color:${d.ma5Pos >= 0 ? 'var(--up)' : 'var(--down)'}">
+            ${d.ma5Pos >= 0 ? '▲' : '▼'}${Math.abs(d.ma5Pos).toFixed(1)}%</b>`
+        : '';
+
+      // Relative strength vs TAIEX
+      let relStrLabel = '';
+      if (taiexData) {
+        const rel = d.weekChange - taiexData.weekChange;
+        relStrLabel = `強弱 <b style="color:${rel >= 0 ? 'var(--up)' : 'var(--down)'}">
+          ${rel >= 0 ? '+' : ''}${rel.toFixed(1)}%</b>`;
+      }
+
       const aiHtml = ai ? `
         <span class="signal-badge ${sigClass(ai.signal)}">${ai.signal} · ${ai.score}/10</span>
         <div class="signal-reason">${ai.reason}</div>
+        ${ai.risk ? `<div class="signal-reason" style="color:var(--warn);margin-top:3px">⚠ ${ai.risk}</div>` : ''}
       ` : '';
+
       dataHtml = `
         <div class="stock-price-row">
           <span class="stock-price">${d.weekClose}</span>
           <span class="stock-change ${isUp ? 'up' : 'down'}">${isUp ? '▲' : '▼'} ${Math.abs(d.weekChange).toFixed(2)}%</span>
         </div>
-        <div class="stock-meta">
+        <div class="stock-meta" style="flex-wrap:wrap;row-gap:4px;">
+          <span>H <b class="up">${d.weekHigh}</b></span>
+          <span>L <b class="down">${d.weekLow}</b></span>
           <span>量比 <b class="${volHiClass}">${d.volRatio.toFixed(2)}x</b></span>
-          <span>交易 ${d.days} 日</span>
+        </div>
+        <div class="stock-meta" style="flex-wrap:wrap;row-gap:4px;margin-bottom:8px;">
+          ${ma5Label ? `<span>${ma5Label}</span>` : ''}
+          ${rsiVal ? `<span>RSI <b style="color:${rsiColor}">${rsiVal}</b></span>` : ''}
+          ${relStrLabel ? `<span>${relStrLabel}</span>` : ''}
         </div>
         ${aiHtml}
       `;
@@ -618,11 +1090,16 @@ function renderStocks() {
       trendInner = `<span style="font-size:11px;color:var(--dim)"><span class="mini-loader"></span>歷史載入中…</span>`;
     }
 
+    const etfBadge = stock.isETF
+      ? ' <span style="font-size:10px;font-weight:700;background:rgba(123,97,255,.2);border:1px solid rgba(123,97,255,.5);color:#a78bfa;border-radius:4px;padding:1px 6px;vertical-align:middle;">ETF</span>'
+      : '';
+
     card.innerHTML = `
+      <button class="edit-btn" title="編輯名稱" onclick="startRename('${stock.id}')">✎</button>
       <button class="remove-btn" onclick="removeStock('${stock.id}')">✕</button>
       <div class="stock-header">
         <div>
-          <div class="stock-name">${stock.name}</div>
+          <div class="stock-name" id="name-display-${stock.id}">${stock.name}${etfBadge}</div>
           <div class="stock-id">${stock.id}</div>
         </div>
         <svg class="sparkline" id="spark-${stock.id}" width="80" height="32"></svg>
@@ -722,28 +1199,55 @@ async function runAnalysis() {
     .filter(s => stockData[s.id])
     .map(s => {
       const d = stockData[s.id];
-      return `${s.name}(${s.id}): 週漲跌${d.weekChange.toFixed(2)}%, 收盤${d.weekClose}, 量比${d.volRatio.toFixed(2)}`;
-    }).join('\n');
+      const ma5str  = d.ma5    != null ? `MA5=${d.ma5.toFixed(1)}(${d.ma5Pos >= 0 ? '+' : ''}${d.ma5Pos?.toFixed(1)}%)` : 'MA5=N/A';
+      const rsiStr  = d.rsi    != null ? `RSI14=${d.rsi.toFixed(1)}` : 'RSI=N/A';
+      const relStr  = taiexData ? `相對強弱=${(d.weekChange - taiexData.weekChange).toFixed(2)}%` : '';
+      return [
+        `${s.name}(${s.id}):`,
+        `  週漲跌=${d.weekChange.toFixed(2)}%`,
+        `  收盤=${d.weekClose}  週高=${d.weekHigh}  週低=${d.weekLow}`,
+        `  量比=${d.volRatio.toFixed(2)}x`,
+        `  ${ma5str}  ${rsiStr}  ${relStr}`,
+      ].join('\n');
+    }).join('\n\n');
 
   const taiexSummary = taiexData
     ? `大盤週漲跌: ${taiexData.weekChange.toFixed(2)}%, 收盤: ${taiexData.weekClose.toFixed(0)}`
     : '大盤數據無法取得';
 
-  const stockIds = stocks.filter(s => stockData[s.id]).map(s => `"${s.id}"`).join(',');
+  // Separate ETF and stocks for prompt context
+  const etfIds    = stocks.filter(s => s.isETF && stockData[s.id]).map(s => s.id);
+  const stockIds  = stocks.filter(s => stockData[s.id]).map(s => `"${s.id}"`).join(',');
 
-  const prompt = `你是台股分析師，根據本週數據與近4週趨勢給出週報建議。請用繁體中文回覆，輸出純JSON，不要有任何markdown語法或說明文字，直接從{開始。
+  const etfNote = etfIds.length ? `
+【ETF 特別說明】
+以下代號為ETF（${etfIds.join('、')}），分析時請使用ETF框架：
+- 評分重點：追蹤指數強弱、技術趨勢、量能是否代表申購潮
+- 風險描述：除息行情、折溢價風險、配息型ETF的填息能力
+- 不需提及個別公司基本面，以整體趨勢與市場情緒為主
+` : '';
 
-本週數據：
+  const prompt = `你是台股技術分析師，根據以下數據給出本週週報建議。請用繁體中文回覆，輸出純JSON，不要有任何markdown語法或說明文字，直接從{開始。
+
+【大盤】
 ${taiexSummary}
 
-個股本週數據：
+【個股／ETF技術數據】
 ${stockSummaries}
 
-個股近4週趨勢（由舊到新）：
+【近4週趨勢（由舊到新）】
 ${histContext || '（歷史趨勢尚未載入）'}
+${etfNote}
+【評分標準 — score欄位定義】
+10分: 強力買進，多項技術指標同步看多，趨勢明確向上
+8-9分: 買進，技術面偏多，RSI健康，MA5以上，相對大盤強勢
+6-7分: 偏多觀望，有正面訊號但尚未突破或量能不足
+5分: 中性，技術面無明顯方向，多空拉鋸
+3-4分: 偏空觀望，技術面走弱，建議減碼或等待
+1-2分: 賣出，明顯下跌趨勢，RSI偏低或超賣後無反彈，跌破MA5
 
-請輸出以下格式（stocks陣列需包含所有個股：${stockIds}）：
-{"taiex":{"trend":"多頭或空頭或盤整","signal":"買進或賣出或觀望","summary":"2-3句分析"},"stocks":[{"id":"股票代號","signal":"買進或賣出或觀望","reason":"一句話原因，可納入近期趨勢判斷","score":1到10的數字}]}`;
+【輸出格式】（stocks陣列需包含所有個股：${stockIds}）
+{"taiex":{"trend":"多頭或空頭或盤整","signal":"買進或賣出或觀望","summary":"2-3句分析"},"stocks":[{"id":"股票代號","signal":"買進或賣出或觀望","score":依評分標準給1-10的整數,"reason":"一句話技術面原因（可提及MA5/RSI/相對強弱）","risk":"一句話主要風險點"}]}`;
 
   try {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
@@ -772,15 +1276,55 @@ ${histContext || '（歷史趨勢尚未載入）'}
   btn.innerHTML = '🤖 AI 週報分析';
 }
 
+// ── Rename stock ─────────────────────────────
+function startRename(id) {
+  const stock      = stocks.find(s => s.id === id);
+  if (!stock) return;
+  const displayEl  = document.getElementById(`name-display-${id}`);
+  if (!displayEl) return;
+
+  const etfBadge = stock.isETF
+    ? ' <span style="font-size:10px;font-weight:700;background:rgba(123,97,255,.2);border:1px solid rgba(123,97,255,.5);color:#a78bfa;border-radius:4px;padding:1px 6px;vertical-align:middle;">ETF</span>'
+    : '';
+
+  // Replace name div with input
+  const input = document.createElement('input');
+  input.className = 'name-input';
+  input.value     = stock.name;
+  displayEl.replaceWith(input);
+  input.focus();
+  input.select();
+
+  function commit() {
+    const newName = input.value.trim() || stock.name;
+    stock.name    = newName;
+    saveStocks();
+    // Restore display
+    const div = document.createElement('div');
+    div.className = 'stock-name';
+    div.id        = `name-display-${id}`;
+    div.innerHTML = newName + etfBadge;
+    input.replaceWith(div);
+  }
+
+  input.addEventListener('blur', commit);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter')  { input.blur(); }
+    if (e.key === 'Escape') { input.value = stock.name; input.blur(); }
+  });
+}
+
 // ── Stock management ─────────────────────────
 function addStock() {
-  const id   = document.getElementById('inp-id').value.trim();
-  const name = document.getElementById('inp-name').value.trim() || id;
+  const id    = document.getElementById('inp-id').value.trim();
+  const name  = document.getElementById('inp-name').value.trim() || id;
+  const isETF = document.getElementById('inp-etf').checked;
   if (!id || stocks.find(s => s.id === id)) return;
-  stocks.push({ id, name });
+  stocks.push({ id, name, isETF });
   saveStocks();
-  document.getElementById('inp-id').value   = '';
-  document.getElementById('inp-name').value = '';
+  document.getElementById('inp-id').value    = '';
+  document.getElementById('inp-name').value  = '';
+  document.getElementById('inp-etf').checked = false;
   renderStocks();
 }
 
