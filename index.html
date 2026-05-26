@@ -426,10 +426,10 @@
           <div class="guide-icon" style="background:rgba(100,255,218,.1)">📉</div>
           <div>
             <div class="guide-name">近 4 週趨勢</div>
-            <div class="guide-eng">4-Week Trend</div>
+            <div class="guide-eng">4-Week Trend Bars</div>
           </div>
         </div>
-        <div class="guide-desc">顯示 W-3（最舊）到本週（最新）共四週的漲跌走勢。柱越高代表當週漲跌幅越大，可快速判斷趨勢方向與動能。</div>
+        <div class="guide-desc">顯示 W-3（最舊）到本週（最新）共四週的漲跌走勢。柱越高代表當週漲跌幅越大，可快速判斷趨勢方向與動能。背後實際抓取 13 週資料用於計算季度摘要指標。</div>
         <div class="guide-levels">
           <div class="guide-level">
             <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">連紅</span>
@@ -442,6 +442,99 @@
           <div class="guide-level">
             <span class="guide-level-tag" style="background:rgba(251,191,36,.15);color:#fbbf24">交替</span>
             <span class="guide-level-desc">多空交錯，整理盤整，方向不明</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="guide-section-title">季度摘要指標（13 週）</div>
+    <div class="guide-grid">
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(123,97,255,.2)">季</div>
+          <div>
+            <div class="guide-name">季均線 / 現價偏離</div>
+            <div class="guide-eng">13-Week MA</div>
+          </div>
+        </div>
+        <div class="guide-desc">過去 13 週收盤價的簡單平均，反映季度趨勢中樞。括號內為現價相對季均線的偏離百分比。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">+ 站上</span>
+            <span class="guide-level-desc">現價高於季均線，中期趨勢偏多</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">− 跌破</span>
+            <span class="guide-level-desc">現價低於季均線，中期趨勢偏空，需謹慎</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(100,255,218,.1)">↕</div>
+          <div>
+            <div class="guide-name">13 週高低點</div>
+            <div class="guide-eng">13-Week High / Low</div>
+          </div>
+        </div>
+        <div class="guide-desc">過去 13 週內出現的最高週收盤與最低週收盤，代表近一季的價格波動區間，可作為中期支撐與壓力參考。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">13w高</span>
+            <span class="guide-level-desc">近季最高價，接近時注意壓力</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">13w低</span>
+            <span class="guide-level-desc">近季最低價，接近時注意支撐</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(248,113,113,.15)">📉</div>
+          <div>
+            <div class="guide-name">最大回撤</div>
+            <div class="guide-eng">Max Drawdown (13w)</div>
+          </div>
+        </div>
+        <div class="guide-desc">13 週內從最高收盤到最低收盤的最大跌幅百分比，衡量持有期間的最壞情況虧損風險。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">≥ 15%</span>
+            <span class="guide-level-desc">高波動，風險較大，需設好停損</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(251,191,36,.15);color:#fbbf24">8～15%</span>
+            <span class="guide-level-desc">中等波動，留意風險承受能力</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(148,163,184,.15);color:#94a3b8">&lt; 8%</span>
+            <span class="guide-level-desc">低波動，走勢相對穩定</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(14,165,233,.15)">⚡</div>
+          <div>
+            <div class="guide-name">近期動能</div>
+            <div class="guide-eng">Momentum (4w vs 9w)</div>
+          </div>
+        </div>
+        <div class="guide-desc">近 4 週平均週漲跌幅 − 前 9 週平均週漲跌幅。正值代表近期動能加速，負值代表動能減弱或轉向。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">+ 加速</span>
+            <span class="guide-level-desc">近4週漲勢優於前9週均值，動能增強</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">− 減速</span>
+            <span class="guide-level-desc">近4週表現弱於前9週均值，注意趨勢轉折</span>
           </div>
         </div>
       </div>
@@ -505,7 +598,7 @@
         <div class="guide-card-header">
           <div class="guide-icon" style="background:rgba(14,165,233,.15)">⚡</div>
           <div>
-            <div class="guide-name">相對強弱</div>
+            <div class="guide-name">相對強弱 vs 大盤</div>
             <div class="guide-eng">Relative Strength vs TAIEX</div>
           </div>
         </div>
@@ -586,7 +679,7 @@
             <div class="guide-eng">Score 1–10</div>
           </div>
         </div>
-        <div class="guide-desc">AI 對技術面整體強度的評分，依據 MA5 位置、RSI、相對強弱、量比、近4週趨勢綜合計算。</div>
+        <div class="guide-desc">AI 對技術面整體強度的評分，依據 MA5 位置、RSI、相對強弱、量比、季均線位置、動能綜合計算。評分旁的 ▲/▼ 代表本週相對上週的分數變化。</div>
         <div class="guide-levels">
           <div class="guide-level">
             <span class="guide-level-tag sig-buy">9–10</span>
@@ -594,7 +687,7 @@
           </div>
           <div class="guide-level">
             <span class="guide-level-tag" style="background:rgba(248,113,113,.1);color:#fca5a5">7–8</span>
-            <span class="guide-level-desc">買進，技術面偏多</span>
+            <span class="guide-level-desc">買進，技術面偏多，季均線以上</span>
           </div>
           <div class="guide-level">
             <span class="guide-level-tag sig-watch">5–6</span>
@@ -613,6 +706,31 @@
 
       <div class="guide-card">
         <div class="guide-card-header">
+          <div class="guide-icon" style="background:rgba(100,255,218,.1)">📅</div>
+          <div>
+            <div class="guide-name">多週比較</div>
+            <div class="guide-eng">Multi-Week Comparison</div>
+          </div>
+        </div>
+        <div class="guide-desc">每次 AI 分析完成後，結果會自動存入瀏覽器，保留最近 4 週紀錄。下次分析時，AI 會收到過去週報的訊號與評分，主動比較趨勢是否持續或反轉。</div>
+        <div class="guide-levels">
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(248,113,113,.15);color:#f87171">▲ 評分上升</span>
+            <span class="guide-level-desc">本週分數高於上週，技術面改善</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(74,222,128,.15);color:#4ade80">▼ 評分下降</span>
+            <span class="guide-level-desc">本週分數低於上週，技術面走弱</span>
+          </div>
+          <div class="guide-level">
+            <span class="guide-level-tag" style="background:rgba(148,163,184,.15);color:#94a3b8">─ 持平</span>
+            <span class="guide-level-desc">與上週相同，趨勢維持不變</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-header">
           <div class="guide-icon" style="background:rgba(251,191,36,.15)">⚠</div>
           <div>
             <div class="guide-name">風險提示</div>
@@ -622,7 +740,9 @@
         <div class="guide-desc">AI 針對每檔個股或 ETF 給出的主要風險點，以黃色字體顯示於訊號下方。常見風險包含：</div>
         <div class="guide-levels" style="margin-top:8px">
           <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">RSI 超買後的回調風險</span></div>
-          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">跌破 MA5 後的加速下跌風險</span></div>
+          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">跌破 MA5 或季均線後的加速下跌風險</span></div>
+          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">最大回撤過大，波動風險偏高</span></div>
+          <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">動能由正轉負，趨勢可能反轉</span></div>
           <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">ETF 除息後的填息壓力</span></div>
           <div class="guide-level"><span style="color:var(--warn)">•</span><span class="guide-level-desc" style="margin-left:4px">量能萎縮導致的流動性不足</span></div>
         </div>
@@ -650,8 +770,9 @@ function switchTab(name, btn) {
 }
 
 // ── LocalStorage keys ────────────────────────
-const LS_STOCKS = 'twstock_watchlist';
-const LS_APIKEY = 'twstock_gemini_key';
+const LS_STOCKS  = 'twstock_watchlist';
+const LS_APIKEY  = 'twstock_gemini_key';
+const LS_HISTORY = 'twstock_analysis_history'; // stores last 4 weekly analyses
 
 const DEFAULT_STOCKS = [
   { id: '2330',  name: '台積電' },
@@ -691,13 +812,45 @@ function loadApiKey() {
 function saveApiKey(k) {
   try { localStorage.setItem(LS_APIKEY, k); } catch (_) {}
 }
+function loadAnalysisHistory() {
+  try {
+    const raw = localStorage.getItem(LS_HISTORY);
+    if (raw) {
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr)) return arr;
+    }
+  } catch (_) {}
+  return [];
+}
+function saveAnalysisHistory() {
+  try { localStorage.setItem(LS_HISTORY, JSON.stringify(analysisHistory)); } catch (_) {}
+}
+/** Push current analysis into history (keyed by ISO week). Keeps last 4. */
+function archiveAnalysis(result) {
+  const today   = new Date();
+  const weekKey = `${today.getFullYear()}-W${String(getISOWeek(today)).padStart(2,'0')}`;
+  // Avoid duplicate for same week
+  analysisHistory = analysisHistory.filter(h => h.weekKey !== weekKey);
+  analysisHistory.unshift({ weekKey, date: today.toLocaleDateString('zh-TW'), taiex: result.taiex, stocks: result.stocks });
+  if (analysisHistory.length > 4) analysisHistory = analysisHistory.slice(0, 4);
+  saveAnalysisHistory();
+}
+function getISOWeek(date) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
 
 // ── State ────────────────────────────────────
 let stocks      = loadStocks();
 let stockData   = {};       // id → current-week data
-let weekHistory = {};       // id → [w-3, w-2, w-1, w0]  (oldest first, may contain null)
+let weekHistory = {};       // id → [w-12..w0] 13 entries oldest first (may contain null)
+let longSummary = {};       // id → computed summary object
 let taiexData   = null;
-let analysis    = null;
+let analysis        = null;
+let analysisHistory = loadAnalysisHistory(); // [{date, taiex, stocks}, ...] newest first
 
 // ── Date utils ──────────────────────────────
 function parseNum(s) { return parseFloat(String(s).replace(/,/g, '')) || 0; }
@@ -835,18 +988,55 @@ async function fetchStockWeek(stockId, refDate) {
 }
 
 /**
- * Fetch 4 consecutive weeks ending with the current week.
- * Returns [w-3, w-2, w-1, w0] — oldest first.
- * Handles cross-month: fetches the correct month for each week automatically.
+ * Fetch 13 consecutive weeks ending with the current week.
+ * Returns [w-12..w0] — oldest first (13 entries, some may be null).
+ * Batches API calls by month to reduce requests.
  */
-async function fetchStockHistory4Weeks(stockId) {
+async function fetchStockHistory13Weeks(stockId) {
   const results = [];
-  for (let n = 3; n >= 0; n--) {
+  for (let n = 12; n >= 0; n--) {
     const monday = getMondayNWeeksAgo(n);
     try { results.push(await fetchStockWeek(stockId, monday)); }
     catch (_) { results.push(null); }
   }
   return results;
+}
+
+/**
+ * Compute a quarter-summary from 13 weeks of history.
+ * Returns: { ma13w, maxDrawdown, high13w, low13w, momentum, validWeeks }
+ *   ma13w      — simple average of weekly closes (季均線概念)
+ *   maxDrawdown — max peak-to-trough drop across the 13w period (%)
+ *   high13w    — highest weekly-high in 13 weeks
+ *   low13w     — lowest weekly-low in 13 weeks
+ *   momentum   — avg weekChange of last 4w minus avg weekChange of prior 9w (%)
+ *   validWeeks — how many of the 13 entries have data
+ */
+function calcLongSummary(weeks) {
+  const valid = weeks.filter(Boolean);
+  if (!valid.length) return null;
+
+  const closes   = valid.map(w => w.weekClose);
+  const ma13w    = closes.reduce((a, b) => a + b, 0) / closes.length;
+  const high13w  = Math.max(...valid.map(w => w.weekHigh ?? w.weekClose));
+  const low13w   = Math.min(...valid.map(w => w.weekLow  ?? w.weekClose));
+
+  // Max drawdown: peak-to-trough on weekly closes
+  let peak = -Infinity, maxDD = 0;
+  closes.forEach(c => {
+    if (c > peak) peak = c;
+    const dd = (peak - c) / peak * 100;
+    if (dd > maxDD) maxDD = dd;
+  });
+
+  // Momentum: avg change of last 4 valid weeks vs prior valid weeks
+  const recent4  = valid.slice(-4).map(w => w.weekChange);
+  const prior    = valid.slice(0, -4).map(w => w.weekChange);
+  const avg4     = recent4.length ? recent4.reduce((a, b) => a + b, 0) / recent4.length : null;
+  const avgPrior = prior.length  ? prior.reduce((a, b) => a + b, 0)  / prior.length  : null;
+  const momentum = avg4 != null && avgPrior != null ? avg4 - avgPrior : null;
+
+  return { ma13w, maxDrawdown: maxDD, high13w, low13w, momentum, validWeeks: valid.length };
 }
 
 // ── Fetch: TAIEX ────────────────────────────
@@ -907,6 +1097,38 @@ function trendIcon(trend) {
   return trend === '多頭' ? '↑' : trend === '空頭' ? '↓' : '→';
 }
 
+// ── Long-summary row renderer ───────────────
+/**
+ * Renders a compact one-line summary of 13-week stats below the bar chart.
+ * lsum = calcLongSummary() result; d = current stockData entry.
+ */
+function renderLongSummaryRow(container, lsum, d) {
+  if (!lsum) { container.innerHTML = ''; return; }
+
+  const ma13w   = lsum.ma13w.toFixed(1);
+  const aboveMa = d ? ((d.weekClose - lsum.ma13w) / lsum.ma13w * 100).toFixed(1) : null;
+  const maColor = aboveMa != null ? (parseFloat(aboveMa) >= 0 ? 'var(--up)' : 'var(--down)') : 'var(--muted)';
+  const maSign  = aboveMa != null && parseFloat(aboveMa) >= 0 ? '+' : '';
+
+  const ddColor = lsum.maxDrawdown >= 15 ? 'var(--up)' : lsum.maxDrawdown >= 8 ? 'var(--warn)' : 'var(--muted)';
+
+  const momSign  = lsum.momentum != null && lsum.momentum >= 0 ? '+' : '';
+  const momColor = lsum.momentum == null ? 'var(--muted)'
+    : lsum.momentum > 0 ? 'var(--up)' : 'var(--down)';
+  const momStr   = lsum.momentum != null ? `${momSign}${lsum.momentum.toFixed(1)}%` : 'N/A';
+
+  container.innerHTML = `
+    <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--border);">
+      <span>季均 <b style="color:var(--text)">${ma13w}</b>
+        ${aboveMa != null ? `<b style="color:${maColor}">(${maSign}${aboveMa}%)</b>` : ''}
+      </span>
+      <span>13w高 <b style="color:var(--up)">${lsum.high13w}</b></span>
+      <span>13w低 <b style="color:var(--down)">${lsum.low13w}</b></span>
+      <span>最大回撤 <b style="color:${ddColor}">${lsum.maxDrawdown.toFixed(1)}%</b></span>
+      <span>近期動能 <b style="color:${momColor}">${momStr}</b></span>
+    </div>`;
+}
+
 // ── Week-bar renderer ────────────────────────
 /**
  * Renders a compact 4-week bar chart inside `container`.
@@ -921,7 +1143,8 @@ function trendIcon(trend) {
  *   [week label]
  */
 function renderWeekBars(container, weeks) {
-  const LABELS  = ['W-3', 'W-2', 'W-1', '本週'];
+  weeks = weeks.slice(-4); // display only last 4 weeks regardless of history length
+  const LABELS = ['W-3', 'W-2', 'W-1', '本週'];
   const MAX_H   = 22; // max bar height in px
   const valid   = weeks.filter(Boolean);
   const maxAbs  = valid.length ? Math.max(...valid.map(w => Math.abs(w.weekChange)), 0.01) : 1;
@@ -1056,8 +1279,19 @@ function renderStocks() {
           ${rel >= 0 ? '+' : ''}${rel.toFixed(1)}%</b>`;
       }
 
+      // Score delta vs last stored week
+      let scoreDelta = '';
+      if (ai && analysisHistory.length > 0) {
+        const prev = analysisHistory[0]?.stocks?.find(s => s.id === stock.id);
+        if (prev && prev.score != null) {
+          const diff = ai.score - prev.score;
+          if (diff > 0)      scoreDelta = `<span style="font-size:10px;color:var(--up);margin-left:5px;font-weight:700;">▲${diff}</span>`;
+          else if (diff < 0) scoreDelta = `<span style="font-size:10px;color:var(--down);margin-left:5px;font-weight:700;">▼${Math.abs(diff)}</span>`;
+          else               scoreDelta = `<span style="font-size:10px;color:var(--dim);margin-left:5px;">─</span>`;
+        }
+      }
       const aiHtml = ai ? `
-        <span class="signal-badge ${sigClass(ai.signal)}">${ai.signal} · ${ai.score}/10</span>
+        <span class="signal-badge ${sigClass(ai.signal)}">${ai.signal} · ${ai.score}/10${scoreDelta}</span>
         <div class="signal-reason">${ai.reason}</div>
         ${ai.risk ? `<div class="signal-reason" style="color:var(--warn);margin-top:3px">⚠ ${ai.risk}</div>` : ''}
       ` : '';
@@ -1081,8 +1315,10 @@ function renderStocks() {
       `;
     }
 
-    // 近4週趨勢 placeholder — will be filled after history loads
-    const trendId = `trend-bars-${stock.id}`;
+    // 近13週趨勢 placeholder — will be filled after history loads
+    const trendId  = `trend-bars-${stock.id}`;
+    const sumId    = `long-summary-${stock.id}`;
+    const lsum     = longSummary[stock.id];
     let trendInner = '';
     if (!d) {
       trendInner = `<span style="font-size:11px;color:var(--dim)">抓取後顯示</span>`;
@@ -1108,6 +1344,7 @@ function renderStocks() {
       <div class="week-trend">
         <div class="week-trend-label">近 4 週趨勢</div>
         <div class="week-bars" id="${trendId}">${trendInner}</div>
+        <div id="${sumId}" style="margin-top:8px;"></div>
       </div>
     `;
     grid.appendChild(card);
@@ -1121,6 +1358,8 @@ function renderStocks() {
 
     if (hist) {
       renderWeekBars(document.getElementById(trendId), hist);
+      const sumEl = document.getElementById(sumId);
+      if (sumEl) renderLongSummaryRow(sumEl, lsum, d);
     }
   });
 }
@@ -1159,17 +1398,21 @@ async function fetchAll() {
 }
 
 /**
- * Fetch 4-week history for each stock sequentially (rate-limit friendly).
- * Updates only the trend-bar area of each card without full re-render.
+ * Fetch 13-week history for each stock sequentially (rate-limit friendly).
+ * Updates trend-bar area and computes long-term summary without full re-render.
  */
 async function fetchAllHistory() {
   for (const s of stocks) {
     if (!stockData[s.id]) continue;
     try {
-      const hist = await fetchStockHistory4Weeks(s.id);
+      const hist = await fetchStockHistory13Weeks(s.id);
       weekHistory[s.id] = hist;
+      longSummary[s.id] = calcLongSummary(hist);
       const el = document.getElementById(`trend-bars-${s.id}`);
       if (el) renderWeekBars(el, hist);
+      // Update long-summary row if card exists
+      const sumEl = document.getElementById(`long-summary-${s.id}`);
+      if (sumEl) renderLongSummaryRow(sumEl, longSummary[s.id], stockData[s.id]);
     } catch (_) { /* silently skip */ }
   }
 }
@@ -1184,16 +1427,26 @@ async function runAnalysis() {
   btn.innerHTML = '<span class="loader"></span>AI 分析中…';
   showAlert('');
 
-  // Build 4-week trend text for prompt
+  // Build 13-week front-end summary for prompt (compact, AI-friendly)
   const histContext = stocks
-    .filter(s => weekHistory[s.id])
+    .filter(s => longSummary[s.id])
     .map(s => {
-      const labels = ['W-3', 'W-2', 'W-1', '本週'];
-      const str = weekHistory[s.id]
-        .map((w, i) => w ? `${labels[i]}:${w.weekChange.toFixed(1)}%` : `${labels[i]}:無`)
-        .join(', ');
-      return `${s.name}(${s.id}) 近4週趨勢: ${str}`;
-    }).join('\n');
+      const ls = longSummary[s.id];
+      const d  = stockData[s.id];
+      const aboveMa = d ? ((d.weekClose - ls.ma13w) / ls.ma13w * 100).toFixed(1) : 'N/A';
+      const aboveSign = parseFloat(aboveMa) >= 0 ? '+' : '';
+      const mom = ls.momentum != null ? `${ls.momentum >= 0 ? '+' : ''}${ls.momentum.toFixed(1)}%` : 'N/A';
+      // Last 4 weeks trend direction
+      const hist = weekHistory[s.id] || [];
+      const last4 = hist.slice(-4).filter(Boolean).map(w => `${w.weekChange >= 0 ? '+' : ''}${w.weekChange.toFixed(1)}%`).join(',');
+      return [
+        `${s.name}(${s.id}) 13週摘要:`,
+        `  季均線=${ls.ma13w.toFixed(1)} 現價${aboveSign}${aboveMa}%`,
+        `  13w高=${ls.high13w} 13w低=${ls.low13w}`,
+        `  最大回撤=${ls.maxDrawdown.toFixed(1)}% 動能(近4w vs前9w)=${mom}`,
+        `  近4週週漲跌: ${last4 || '無'}`,
+      ].join('\n');
+    }).join('\n\n');
 
   const stockSummaries = stocks
     .filter(s => stockData[s.id])
@@ -1227,6 +1480,16 @@ async function runAnalysis() {
 - 不需提及個別公司基本面，以整體趨勢與市場情緒為主
 ` : '';
 
+  // Build multi-week comparison context from stored history (up to 3 prior weeks)
+  const prevWeeks = analysisHistory.slice(0, 3); // newest first, exclude current week
+  const multiWeekContext = prevWeeks.length ? prevWeeks.map(h => {
+    const stockLines = (h.stocks || [])
+      .filter(s => stockData[s.id]) // only stocks still in watchlist
+      .map(s => `  ${s.id}: 訊號=${s.signal} 評分=${s.score}/10`)
+      .join('\n');
+    return `${h.date}（${h.weekKey}）:\n${stockLines || '  （無資料）'}`;
+  }).join('\n\n') : null;
+
   const prompt = `你是台股技術分析師，根據以下數據給出本週週報建議。請用繁體中文回覆，輸出純JSON，不要有任何markdown語法或說明文字，直接從{開始。
 
 【大盤】
@@ -1235,19 +1498,22 @@ ${taiexSummary}
 【個股／ETF技術數據】
 ${stockSummaries}
 
-【近4週趨勢（由舊到新）】
+【13週技術摘要（季均線/回撤/動能/近4週走勢）】
 ${histContext || '（歷史趨勢尚未載入）'}
-${etfNote}
+${multiWeekContext ? `【過去週報紀錄（由新到舊，供趨勢比較）】
+${multiWeekContext}
+請比較本週與過去週報的訊號與評分變化，在reason欄位中若有明顯轉變（例如連續上升/下降、訊號反轉）請特別點出。
+` : ''}${etfNote}
 【評分標準 — score欄位定義】
 10分: 強力買進，多項技術指標同步看多，趨勢明確向上
-8-9分: 買進，技術面偏多，RSI健康，MA5以上，相對大盤強勢
+8-9分: 買進，技術面偏多，RSI健康，MA5以上，季均線以上，相對大盤強勢
 6-7分: 偏多觀望，有正面訊號但尚未突破或量能不足
 5分: 中性，技術面無明顯方向，多空拉鋸
 3-4分: 偏空觀望，技術面走弱，建議減碼或等待
 1-2分: 賣出，明顯下跌趨勢，RSI偏低或超賣後無反彈，跌破MA5
 
 【輸出格式】（stocks陣列需包含所有個股：${stockIds}）
-{"taiex":{"trend":"多頭或空頭或盤整","signal":"買進或賣出或觀望","summary":"2-3句分析"},"stocks":[{"id":"股票代號","signal":"買進或賣出或觀望","score":依評分標準給1-10的整數,"reason":"一句話技術面原因（可提及MA5/RSI/相對強弱）","risk":"一句話主要風險點"}]}`;
+{"taiex":{"trend":"多頭或空頭或盤整","signal":"買進或賣出或觀望","summary":"2-3句分析"},"stocks":[{"id":"股票代號","signal":"買進或賣出或觀望","score":依評分標準給1-10的整數,"reason":"一句話技術面原因（可提及MA5/RSI/相對強弱/季均線位置/動能）","risk":"一句話主要風險點"}]}`;
 
   try {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
@@ -1266,6 +1532,7 @@ ${etfNote}
     const match = text.match(/\{[\s\S]*\}/);
     if (!match) throw new Error('回應內容：' + text.slice(0, 200));
     analysis = JSON.parse(match[0]);
+    archiveAnalysis(analysis);
     renderTaiex();
     renderStocks();
   } catch (e) {
@@ -1332,6 +1599,7 @@ function removeStock(id) {
   stocks = stocks.filter(s => s.id !== id);
   delete stockData[id];
   delete weekHistory[id];
+  delete longSummary[id];
   saveStocks();
   renderStocks();
 }
